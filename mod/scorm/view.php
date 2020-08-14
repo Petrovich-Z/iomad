@@ -162,7 +162,21 @@ if (empty($launch) && ($scorm->displayattemptstatus == SCORM_DISPLAY_ATTEMPTSTAT
          $scorm->displayattemptstatus == SCORM_DISPLAY_ATTEMPTSTATUS_ENTRY)) {
     $attemptstatus = scorm_get_attempt_status($USER, $scorm, $cm);
 }
-echo $OUTPUT->box(format_module_intro('scorm', $scorm, $cm->id).$attemptstatus, 'container', 'intro');
+echo $OUTPUT->box(
+        html_writer::tag('div',
+            html_writer::tag('div',
+                format_module_intro('scorm', $scorm, $cm->id),
+                array('class' => 'col-12 col-md-8')
+            ) . 
+            html_writer::tag('div',
+                $attemptstatus,
+                array('class' => 'col-12 col-md-4 offset-lg-1 col-lg-3 ')
+            ),
+            array('class' => 'row')
+        ), 
+        'container-fluid', 
+        'intro'
+    );
 
 // Check if SCORM available.
 list($available, $warnings) = scorm_get_availability_status($scorm);
